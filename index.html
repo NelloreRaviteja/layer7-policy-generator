@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Layer7 API Policy Generator with Multi-format Request/Response</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f8f8f8;
+    }
+    h2 {
+      color: #333;
+    }
+    form {
+      background-color: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      max-width: 800px;
+      box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+    }
+    label {
+      font-weight: bold;
+    }
+    input[type="text"],
+    input[type="number"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+    .checkbox-group > div {
+      margin-bottom: 20px;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 10px;
+    }
+    .checkbox-group label {
+      font-weight: normal;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .format-section {
+      margin-bottom: 25px;
+      padding: 15px;
+      background-color: #f0f8ff;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Layer7 API Policy Generator with Multi-format Request/Response & Error Handling</h2>
+
+  <form id="apiForm">
+    <label>Application Name:</label>
+    <input type="text" name="applicationName" required />
+
+    <label>API Name:</label>
+    <input type="text" name="apiName" required />
+
+    <label>URL Path:</label>
+    <input type="text" name="urlPath" required />
+
+    <label>Backend URL:</label>
+    <input type="text" name="backendUrl" required />
+
+    <label>HTTP Method:</label>
+    <select name="httpMethod">
+      <option>GET</option>
+      <option>POST</option>
+      <option>PUT</option>
+      <option>DELETE</option>
+    </select>
+
+    <label>API Type:</label>
+    <select name="apiType">
+      <option>Internal</option>
+      <option>External</option>
+    </select>
+
+    <div class="format-section">
+      <label><strong>Request Format:</strong></label>
+      <select id="requestFormat" name="requestFormat" required>
+        <option value="json">JSON</option>
+        <option value="xml">XML</option>
+        <option value="html">HTML</option>
+        <option value="text">Plain Text</option>
+        <option value="javascript">JavaScript</option>
+      </select>
+      <label>Request Body:</label>
+      <textarea id="requestBody" name="requestBody" rows="6" placeholder='{"accountNumber": "123456"}' required></textarea>
+    </div>
+
+    <div class="format-section">
+      <label><strong>Response Format:</strong></label>
+      <select id="responseFormat" name="responseFormat" required>
+        <option value="json">JSON</option>
+        <option value="xml">XML</option>
+        <option value="html">HTML</option>
+        <option value="text">Plain Text</option>
+        <option value="javascript">JavaScript</option>
+      </select>
+      <label>Response Body:</label>
+      <textarea id="responseBody" name="responseBody" rows="6" placeholder='{"status": "SUCCESS"}' required></textarea>
+    </div>
+
+    <label>Select Required Validations & Policies:</label>
+    <div class="checkbox-group">
+
+      <div>
+        <label><input type="checkbox" name="policies" value="httpMethodValidation" /> HTTP Method Validation</label>
+        <label>Error Code:</label>
+        <input type="number" name="httpMethodValidation_errorCode" placeholder="e.g. 405" />
+        <label>Error Message:</label>
+        <input type="text" name="httpMethodValidation_errorMsg" placeholder="Method Not Allowed" />
+      </div>
+
+      <div>
+        <label><input type="checkbox" name="policies" value="sslCertValidation" /> SSL Certificate Validation</label>
+        <label>Error Code:</label>
+        <input type="number" name="sslCertValidation_errorCode" placeholder="e.g. 403" />
+        <label>Error Message:</label>
+        <input type="text" name="sslCertValidation_errorMsg" placeholder="SSL Certificate Invalid" />
+      </div>
+
+      <div>
+        <label><input type="checkbox" name="policies" value="ipValidation" /> IP Validation</label>
+        <label>Error Code:</label>
+        <input type="number" name="ipValidation_errorCode" placeholder="e.g. 403" />
+        <label>Error Message:</label>
+        <input type="text" name="ipValidation_errorMsg" placeholder="IP Not Allowed" />
+      </div>
+
+      <div>
+        <label><input type="checkbox" name="policies" value="contentTypeValidation" /> Content-Type Validation</label>
+        <label>Error Code:</label>
+        <input type="number" name="contentTypeValidation_errorCode" placeholder="e.g. 415" />
+        <label>Error Message:</label>
+        <input type="text" name="contentTypeValidation_errorMsg" placeholder="Unsupported Media Type" />
+      </div>
+
+      <div>
+        <label><input type="checkbox" name="policies" value="oauthValidation" /> OAuth Token Validation</label>
+        <label>Error Code:</label>
+        <input type="number" name="oauthValidation_errorCode" placeholder="e.g. 401" />
+        <label>Error Message:</label>
+        <input type="text" name="oauthValidation_errorMsg" placeholder="Invalid OAuth Token" />
+      </div>
+
+      <div>
+        <label><input type="checkbox" name="policies" value="jwtValidation" /> JWT Validation</label>
+        <label>Error Code:</label>
+        <input type="number" name="jwtValidation_errorCode" placeholder="e.g. 401" />
+        <label>Error Message:</label>
+        <input type="text" name="jwtValidation_errorMsg" placeholder="Invalid JWT" />
+      </div>
+
+      <div>
+        <label><input type="checkbox" name="policies" value="hmacValidation" /> HMAC Validation</label>
+        <label>Error Code:</label>
+        <input type="number" name="hmacValidation_errorCode" placeholder="e.g. 401" />
+        <label>Error Message:</label>
+        <input type="text" name="hmacValidation_errorMsg" placeholder="HMAC Validation Failed" />
+      </div>
+
+      <div>
+        <label><input type="checkbox" name="policies" value="encryption" /> Encryption / Decryption</label>
+        <label>Error Code:</label>
+        <input type="number" name="encryption_errorCode" placeholder="e.g. 500" />
+        <label>Error Message:</label>
+        <input type="text" name="encryption_errorMsg" placeholder="Encryption Error" />
+      </div>
+
+      <div>
+        <label><input type="checkbox" name="policies" value="threatProtection" /> Threat Protection</label>
+        <label>Error Code:</label>
+        <input type="number" name="threatProtection_errorCode" placeholder="e.g. 403" />
+        <label>Error Message:</label>
+        <input type="text" name="threatProtection_errorMsg" placeholder="Threat Detected" />
+      </div>
+
+      <div>
+        <label><input type="checkbox" name="policies" value="corsHandling" /> CORS Handling</label>
+        <label>Error Code:</label>
+        <input type="number" name="corsHandling_errorCode" placeholder="e.g. 403" />
+        <label>Error Message:</label>
+        <input type="text" name="corsHandling_errorMsg" placeholder="CORS Not Allowed" />
+      </div>
+
+    </div>
+
+    <button type="submit">Save & Generate Assertions</button>
+  </form>
+
+  <script>
+    document.getElementById('apiForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const formData = new FormData(event.target);
+      const values = Object.fromEntries(formData.entries());
+
+      // Multiple checkbox policies
+      values.policies = formData.getAll("policies");
+
+      // Error handling per policy
+      values.errorHandling = {};
+      values.policies.forEach(policy => {
+        values.errorHandling[policy] = {
+          errorCode: formData.get(policy + '_errorCode') || '',
+          errorMsg: formData.get(policy + '_errorMsg') || ''
+        };
+      });
+
+      // Request/Response body and formats
+      values.requestBody = formData.get('requestBody');
+      values.requestFormat = formData.get('requestFormat');
+      values.responseBody = formData.get('responseBody');
+      values.responseFormat = formData.get('responseFormat');
+
+      console.log("Complete form data:", values);
+
+      // Change '/your-backend-api-url' to your actual backend URL
+      fetch('/your-backend-api-url', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(values)
+      })
+      .then(response => response.json())
+      .then(data => {
+        alert('✅ Policy Generated Successfully with multi-format Request/Response!');
+        console.log('Backend response:', data);
+      })
+      .catch(error => {
+        alert('❌ Error generating policy.');
+        console.error(error);
+      });
+    });
+  </script>
+
+</body>
+</html>
