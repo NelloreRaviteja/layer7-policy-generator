@@ -1,0 +1,85 @@
+{
+  "info": {
+    "_postman_id": "9818ddda-8639-43ce-886f-fc8656457b42",
+    "name": "UC-04 Staging vs Production Drift Detection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Customer Account Balance",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "ecbbfd8f-7347-4ff8-8066-a800c2696fd6",
+            "exec": [
+              "var response = pm.response.json();\r",
+              "\r",
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response time less than 2000 ms\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Status should be SUCCESS\", function () {\r",
+              "    pm.expect(response.status).to.eql(\"SUCCESS\");\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "id": "1c311f20-b90b-41a6-81eb-ca804de6b105",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"request_id\": \"REQ20260705001\",\r\n    \"customer_id\": \"CUST100001\",\r\n    \"account_number\": \"5678901234567890\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://192.168.10.40:8080/staging/v1/customer/account-balance",
+          "protocol": "http",
+          "host": [
+            "192",
+            "168",
+            "10",
+            "40"
+          ],
+          "port": "8080",
+          "path": [
+            "staging",
+            "v1",
+            "customer",
+            "account-balance"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "/"
+    }
+  ]
+}

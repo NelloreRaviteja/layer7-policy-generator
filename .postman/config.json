@@ -1,0 +1,20 @@
+{
+  "workspace": {
+    "id": "589df7ff-d8ef-4754-bc55-abd29ea94064"
+  },
+  "entities": {
+    "collections": [
+      "../postman/collections/UC-01 API Deprecation & Lifecycle Governance_38137358-2e415d66-9e35-479b-867a-30720d5d1d57.postman_collection.json",
+      "../postman/collections/UC-03 Automated API Health Monitoring_38137358-654341ce-7b5f-431f-bf96-d41a6a07ab88.postman_collection.json",
+      "../postman/collections/API Regression Testing Using Postman CLI_38137358-6b10345e-50fa-460c-8dbc-1915ef3bfdac.postman_collection.json",
+      "../postman/collections/UC-02 Closing the Test Coverage Gap with Real Usage Data_38137358-6d4c243d-bae8-4453-be55-ad76d2a397ce.postman_collection.json",
+      "../postman/collections/UC-04 Staging vs Production Drift Detection_38137358-9818ddda-8639-43ce-886f-fc8656457b42.postman_collection.json",
+      "../postman/collections/Banking – Card Management – Orbit Demo_38137358-e7464cd8-7620-4984-993c-e8461f13e1e4.postman_collection.json",
+      "../postman/collections/http-192.168.10.40-8080-account-create_38137358-f394e4e0-c211-4b6a-9824-84b02eea1940.postman_collection.json"
+    ],
+    "environments": [],
+    "specs": [],
+    "flows": [],
+    "globals": []
+  }
+}

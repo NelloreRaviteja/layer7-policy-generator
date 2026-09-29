@@ -1,0 +1,100 @@
+{
+  "info": {
+    "_postman_id": "6d4c243d-bae8-4453-be55-ad76d2a397ce",
+    "name": "UC-02 Closing the Test Coverage Gap with Real Usage Data",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Customer Fund Transfer",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "38c2bcf1-891a-4a48-a9d9-07acb84a58f8",
+            "exec": [
+              "var response = pm.response.json();\r",
+              "\r",
+              "if (pm.response.code === 200) {\r",
+              "\r",
+              "    pm.test(\"Status code is 200\", function () {\r",
+              "        pm.response.to.have.status(200);\r",
+              "    });\r",
+              "\r",
+              "    pm.test(\"Status should be SUCCESS\", function () {\r",
+              "        pm.expect(response.status).to.eql(\"SUCCESS\");\r",
+              "    });\r",
+              "\r",
+              "    pm.test(\"Transaction Status\", function () {\r",
+              "        pm.expect(response.transaction_status).to.eql(\"SUCCESS\");\r",
+              "    });\r",
+              "\r",
+              "}\r",
+              "else if (pm.response.code === 400) {\r",
+              "\r",
+              "    pm.test(\"Status code is 400\", function () {\r",
+              "        pm.response.to.have.status(400);\r",
+              "    });\r",
+              "\r",
+              "    pm.test(\"Status should be FAILURE\", function () {\r",
+              "        pm.expect(response.status).to.eql(\"FAILURE\");\r",
+              "    });\r",
+              "\r",
+              "}"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "id": "bb7d1674-2e30-4bdb-bd89-ae3e13854b07",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"request_id\": \"REQ20260704001\",\r\n    \"customer_id\": \"CUST100001\",\r\n    \"source_account\": \"5678901234567890\",\r\n    \"beneficiary_account\": \"6789012345678901\",\r\n    \"transfer_amount\": \"5000\",\r\n    \"transaction_type\": \"IMPS\",\r\n    \"branch_code\": \"BLR001\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://192.168.10.40:8080/banking/v1/customer/fund-transfer",
+          "protocol": "http",
+          "host": [
+            "192",
+            "168",
+            "10",
+            "40"
+          ],
+          "port": "8080",
+          "path": [
+            "banking",
+            "v1",
+            "customer",
+            "fund-transfer"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "/"
+    }
+  ]
+}
