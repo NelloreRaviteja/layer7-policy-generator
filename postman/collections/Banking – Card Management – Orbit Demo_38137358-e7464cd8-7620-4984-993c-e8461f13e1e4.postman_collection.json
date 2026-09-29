@@ -1,0 +1,129 @@
+{
+  "info": {
+    "_postman_id": "e7464cd8-7620-4984-993c-e8461f13e1e4",
+    "name": "Banking – Card Management – Orbit Demo",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Block Card API",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Response time is less than 2 seconds\", function () {\r\n    pm.expect(pm.response.responseTime).to.be.below(2000);\r\n});\r\n\r\npm.test(\"Response is JSON\", function () {\r\n    pm.response.to.be.json;\r\n});\r\n\r\nconst response = pm.response.json();\r\n\r\npm.test(\"Card status is BLOCKED\", function () {\r\n    pm.expect(response.status).to.eql(\"BLOCKED\");\r\n});\r\n\r\npm.test(\"Card ID is correct\", function () {\r\n    pm.expect(response.cardId).to.eql(\"CARD12345\");\r\n});\r\n\r\npm.test(\"Success message is present\", function () {\r\n    pm.expect(response.message).to.eql(\"Card blocked successfully\");\r\n});"
+            ]
+          }
+        }
+      ],
+      "id": "bd2cdfce-54cb-45df-a5a7-112e4a247887",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "2e9cb914-bcdf-4d71-a791-1ea7a8d817f3-1790600378",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"cardId\": \"CARD12345\",\r\n  \"reason\": \"CARD_LOST\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://192.168.10.40:8443/cards/{cardId}/blcock",
+          "protocol": "https",
+          "host": [
+            "192",
+            "168",
+            "10",
+            "40"
+          ],
+          "port": "8443",
+          "path": [
+            "cards",
+            "{cardId}",
+            "blcock"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Replacement Card",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Response time is less than 2 seconds\", function () {\r\n    pm.expect(pm.response.responseTime).to.be.below(2000);\r\n});\r\n\r\npm.test(\"Response is JSON\", function () {\r\n    pm.response.to.be.json;\r\n});\r\n\r\nconst response = pm.response.json();\r\n\r\npm.test(\"Replacement request is created\", function () {\r\n    pm.expect(response.status).to.eql(\"REQUEST_CREATED\");\r\n});\r\n\r\npm.test(\"Card ID is correct\", function () {\r\n    pm.expect(response.cardId).to.eql(\"CARD12345\");\r\n});\r\n\r\npm.test(\"Replacement Request ID is present\", function () {\r\n    pm.expect(response.replacementRequestId).to.exist;\r\n});\r\n\r\npm.test(\"Success message is present\", function () {\r\n    pm.expect(response.message).to.eql(\r\n        \"Replacement card request created successfully\"\r\n    );\r\n});"
+            ]
+          }
+        }
+      ],
+      "id": "b4332b96-fcb0-4fd4-833f-db1d13eab7b0",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "2e9cb914-bcdf-4d71-a791-1ea7a8d817f3-1790600378",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"cardId\": \"CARD12345\",\r\n  \"reason\": \"CARD_LOST\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://192.168.10.40:8443/cards/{cardId}/replacement",
+          "protocol": "https",
+          "host": [
+            "192",
+            "168",
+            "10",
+            "40"
+          ],
+          "port": "8443",
+          "path": [
+            "cards",
+            "{cardId}",
+            "replacement"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

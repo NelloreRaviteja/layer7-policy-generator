@@ -1,0 +1,105 @@
+{
+  "info": {
+    "_postman_id": "f394e4e0-c211-4b6a-9824-84b02eea1940",
+    "name": "http://192.168.10.40:8080/account/create",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "account",
+      "item": [
+        {
+          "name": "create",
+          "item": [
+            {
+              "name": "Create Account",
+              "id": "6051fd2a-6759-40ad-9f4f-b0e90bcdb15b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customerId\": \"string\",\n  \"accountType\": \"string\",\n  \"initialDeposit\": 8452.980668404101,\n  \"branchCode\": \"string\",\n  \"currency\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/account/create",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "account",
+                    "create"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "046acf1c-489d-4d15-94c1-2792afa56dcc",
+                  "name": "Account created successfully.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"customerId\": \"string\",\n  \"accountType\": \"string\",\n  \"initialDeposit\": 8452.980668404101,\n  \"branchCode\": \"string\",\n  \"currency\": \"string\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/account/create",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "account",
+                        "create"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null
+                }
+              ]
+            }
+          ],
+          "id": "8dc94f01-f7fc-4d6f-bfd0-17f32f6b37ab"
+        }
+      ],
+      "id": "623f70d9-2d73-4bda-ac92-93612be9becb"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "/"
+    }
+  ]
+}

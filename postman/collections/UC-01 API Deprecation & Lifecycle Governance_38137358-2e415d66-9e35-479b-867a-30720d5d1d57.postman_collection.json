@@ -1,0 +1,198 @@
+{
+  "info": {
+    "_postman_id": "2e415d66-9e35-479b-867a-30720d5d1d57",
+    "name": "UC-01 API Deprecation & Lifecycle Governance",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Customer Account Inquiry v1",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "b0029fce-6fa2-4b2b-b215-bf0c78a1b704",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response time less than 2000 ms\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response body should not be empty\", function () {\r",
+              "    pm.expect(pm.response.text()).to.not.be.empty;\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "id": "4b3a5c4d-f66b-46ad-b341-016df9b49c0c",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"request_id\": \"REQ20260703001\",\r\n    \"customer_id\": \"CUST100001\",\r\n    \"account_number\": \"5678901234567890\",\r\n    \"branch_code\": \"BLR001\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://192.168.10.40:8080/banking/v1/customer/account/details",
+          "protocol": "http",
+          "host": [
+            "192",
+            "168",
+            "10",
+            "40"
+          ],
+          "port": "8080",
+          "path": [
+            "banking",
+            "v1",
+            "customer",
+            "account",
+            "details"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Customer Account Inquiry v2",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "d98409e1-1a7e-4faa-9037-466f514a9b60",
+            "exec": [
+              "var response = pm.response.json();\r",
+              "\r",
+              "if (pm.response.code === 200) {\r",
+              "\r",
+              "    pm.test(\"Status code is 200\", function () {\r",
+              "        pm.response.to.have.status(200);\r",
+              "    });\r",
+              "\r",
+              "    pm.test(\"Response time is below 2000 ms\", function () {\r",
+              "        pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+              "    });\r",
+              "\r",
+              "    pm.test(\"Status should be SUCCESS\", function () {\r",
+              "        pm.expect(response.status).to.eql(\"SUCCESS\");\r",
+              "    });\r",
+              "\r",
+              "    pm.test(\"Customer ID validation\", function () {\r",
+              "        pm.expect(response.customer_id).to.eql(\"CUST100001\");\r",
+              "    });\r",
+              "\r",
+              "    pm.test(\"Account Number validation\", function () {\r",
+              "        pm.expect(response.account_number).to.eql(\"5678901234567890\");\r",
+              "    });\r",
+              "\r",
+              "    pm.test(\"Branch Code validation\", function () {\r",
+              "        pm.expect(response.branch_code).to.eql(\"BLR001\");\r",
+              "    });\r",
+              "\r",
+              "    pm.test(\"Channel validation\", function () {\r",
+              "        pm.expect(response.channel_id).to.eql(\"MOBILE\");\r",
+              "    });\r",
+              "\r",
+              "    pm.test(\"Account Type validation\", function () {\r",
+              "        pm.expect(response.account_type).to.eql(\"SAVINGS\");\r",
+              "    });\r",
+              "\r",
+              "}\r",
+              "else if (pm.response.code === 400) {\r",
+              "\r",
+              "    pm.test(\"Status code is 400\", function () {\r",
+              "        pm.response.to.have.status(400);\r",
+              "    });\r",
+              "\r",
+              "    pm.test(\"Status should be FAILURE\", function () {\r",
+              "        pm.expect(response.status).to.eql(\"FAILURE\");\r",
+              "    });\r",
+              "\r",
+              "    pm.test(\"Error code validation\", function () {\r",
+              "        pm.expect(response.error_code).to.eql(\"400\");\r",
+              "    });\r",
+              "\r",
+              "    pm.test(\"Error message validation\", function () {\r",
+              "        pm.expect(response.error_message).to.eql(\"Bad Request\");\r",
+              "    });\r",
+              "\r",
+              "}"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "id": "af91363a-0a70-42e6-b83b-06ed8f7422d1",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"request_id\": \"REQ20260703001\",\r\n    \"customer_id\": \"CUST100001\",\r\n    \"account_number\": \"5678901234567890\",\r\n    \"branch_code\": \"BLR001\",\r\n    \"channel_id\": \"MOBILE\",\r\n    \"account_type\": \"SAVINGS\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://192.168.10.40:8080/banking/v2/customer/account/inquiry",
+          "protocol": "http",
+          "host": [
+            "192",
+            "168",
+            "10",
+            "40"
+          ],
+          "port": "8080",
+          "path": [
+            "banking",
+            "v2",
+            "customer",
+            "account",
+            "inquiry"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "/"
+    }
+  ]
+}
